@@ -1,6 +1,6 @@
 class Car:
-    def __init__(self, comf_class: int, clean_mark: int, brand: str) -> None:
-        self.comfort_class = comf_class
+    def __init__(self, comfort_class: int, clean_mark: int, brand: str) -> None:
+        self.comfort_class = comfort_class
         self.clean_mark = clean_mark
         self.brand = brand
 
@@ -17,18 +17,17 @@ class CarWashStation:
         if self.clean_power > car.clean_mark:
             car.clean_mark = self.clean_power
 
-    def rate_service(self, rate: int) -> None:
+    def rate_service(self, rating: int) -> None:
         self.count_of_ratings += 1
         self.average_rating = round(
-            (rate + self.average_rating * (self.count_of_ratings - 1))
-            / self.count_of_ratings, 1)
+            (rating + self.average_rating * (self.count_of_ratings - 1)) / self.count_of_ratings, 1)
 
     def calculate_washing_price(self, car: Car) -> float:
         income = 0.0
         if self.clean_power > car.clean_mark:
             power_diff = self.clean_power - car.clean_mark
-            check = car.comfort_class * power_diff * self.average_rating
-            income = check / self.distance_from_city_center
+            price_numerator = car.comfort_class * power_diff * self.average_rating
+            income = price_numerator / self.distance_from_city_center
         return round(income, 1)
 
     def serve_cars(self, cars: list) -> float:
